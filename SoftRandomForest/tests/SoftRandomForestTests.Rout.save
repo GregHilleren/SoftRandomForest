@@ -1,0 +1,61 @@
+WARNING: ignoring environment value of R_HOME
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library(SoftRandomForest)
+> A = rnorm(1000, 200, 4)
+> B = rnorm(1000, 20, 6)
+> C = rnorm(1000, 175, 4)
+> D = rnorm(1000, 30, 2)
+> traindata = matrix(NA, 1000, 4)
+> traindata[1:333,] = cbind(B[1:333], D[1:333], A[1:333], C[1:333])
+> traindata[334:666,] = cbind(D[334:666], A[334:666], B[334:666], C[334:666])
+> traindata[667:1000,] = cbind(C[667:1000], B[667:1000], A[667:1000], D[667:1000])
+> 
+> seq = 1:1000
+> responsevec = cbind(c(rep(1, 333), rep(0, 667)), c(rep(0, 333), rep(1, 333), rep(0, 334)), c(rep(0, 666), rep(1, 334)))
+> index = sample(seq, 750, replace = FALSE)
+> testindex = sample(seq[-index], 250, replace = FALSE)
+> prediction = SoftClassForest(trainresponses = responsevec[index,], train = traindata[index,], test = traindata[testindex,], ntry = 2, ntrees = 50, depth = 3, bag = TRUE)
+There were 50 or more warnings (use warnings() to see the first 50)
+> responsevectest = responsevec[testindex,]
+> actualresponse = numeric(250)
+> for(i in 1:250)
++ {
++   actualresponse[i] = which.max(responsevectest[i,])
++ }
+> 
+> sum(prediction == actualresponse) == 250
+[1] TRUE
+> 
+> Obs = sample(1:1000, 2, replace = FALSE)
+> ObsOut = SoftObservation(response = responsevec[,1], train = traindata, depth = 5, keep = TRUE, observation = c(2,5))
+There were 50 or more warnings (use warnings() to see the first 50)
+> sum(0 < ObsOut$Prediction & ObsOut$Prediction < 1) == 2
+[1] TRUE
+> 0 < min(ObsOut$AllWeights) & max(ObsOut$AllWeights) < 1
+[1] TRUE
+> 
+>     
+> 
+> proc.time()
+   user  system elapsed 
+ 24.556   0.138  25.343 

@@ -1,0 +1,16 @@
+Package: SoftRandomForest
+Version: 1.0
+Date: 2019-05-05
+Title: Classification Random Forests for Soft Decision Trees
+Author: Gregory Hilleren <hille321@umn.edu>
+Maintainer: Gregory Hilleren <hille321@umn.edu>
+Depends: R (>= 3.4.0)
+Description: Performs Random Forests for Soft Decision Trees for a 
+	classification problem.  Current limitations are for a maximum depth of 5
+	resulting in 16 terminal nodes.  Some data pre-processing is required before
+	input.  Final graphic output requires currently requires exporting to Microsoft
+	Excel for visualization.
+Imports: boot, utils
+License: CC0
+RoxygenNote: 6.1.1
+Encoding: UTF-8
