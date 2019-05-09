@@ -35,3 +35,8 @@ one classification at a time.  The result from each one of these SDTs is a fitte
 Once all classifications have a fitted probability, the observation is classified as the maximum a posteriori probability.
 Given a Random Forest of SDTs, the final Random Forest classification goes to the majority vote from the SDTs.
 }
+\examples{
+Responses = SoftClassMatrix(as.vector(iris$Species))
+SoftClassForest(trainresponses = Responses, train = iris[,1:4], test = iris[,1:4], 
+ntry = 2, ntrees = 15, depth = 2, bag = TRUE)
+}

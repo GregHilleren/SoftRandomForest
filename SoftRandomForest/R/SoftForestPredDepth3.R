@@ -1,4 +1,3 @@
-#' @export
 
 SoftForestPredDepth3 = function(trainresponse, train, test, num.features, ntry, keep = FALSE)
 {

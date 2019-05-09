@@ -18,6 +18,11 @@
 #' @return A vector of the final classifications based on the Random Forest generated.
 #' 
 #' @export
+#' 
+#' @examples
+#' Responses = SoftClassMatrix(as.vector(iris$Species))
+#' SoftClassForest(trainresponses = Responses, train = iris[,1:4], test = iris[,1:4], 
+#' ntry = 2, ntrees = 15, depth = 2, bag = TRUE)
 
 SoftClassForest = function(trainresponses, train, test, ntry, ntrees, depth, bag = TRUE)
 {

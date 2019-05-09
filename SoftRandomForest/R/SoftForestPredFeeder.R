@@ -11,7 +11,6 @@
 #' @param ntry The number of variables from the \code{num.features} to attempt to split.  This is useful for building random forests.  For a standard tree, choose \code{ntry = num.features}.
 #' @param depth The number of the depth each SDT should be.  Here this ends with \eqn{2^{depth - 1}} terminal nodes.
 #' @return The output from the chosen function.
-#' @export
 
 SoftForestPredFeeder = function(trainresponse, train, test, num.features, ntry, depth)
 {
@@ -30,5 +29,5 @@ SoftForestPredFeeder = function(trainresponse, train, test, num.features, ntry, 
   else if (depth == 3) SoftForestPredDepth3(trainresponse, train, test, num.features, ntry)
   else if (depth == 4) SoftForestPredDepth4(trainresponse, train, test, num.features, ntry)
   else if (depth == 5) SoftForestPredDepth5(trainresponse, train, test, num.features, ntry)
-  else print("Not a Possible Depth")
+  else message("Not a Possible Depth")
 }

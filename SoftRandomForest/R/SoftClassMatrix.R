@@ -13,6 +13,10 @@
 #' @return A matrix where \code{1} indicates that observation was classified as that column's response and \code{0} if not. 
 #' 
 #' @export
+#' 
+#' @examples 
+#' Input = c("A", "C", "B", "B", "A", "B")
+#' SoftClassMatrix(Input, classes = c("A", "B", "C", "D"))
 
 SoftClassMatrix = function(responses, classes = NA)
 {

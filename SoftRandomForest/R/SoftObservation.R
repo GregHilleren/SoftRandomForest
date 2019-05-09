@@ -14,8 +14,8 @@
 #' @param depth A numeric of the number of the depth each SDT should be.  Here this ends with \eqn{2^{depth - 1}} terminal nodes.
 #' @param keep A logical passed to the internal functions to keep the prediction and weights (TRUE) or discard the weights and keep only prediction (FALSE).
 #' @param observation A numeric or vector containing observations of interest to keep the fitted prediction probability and weights.
-#' @param export A logicial indicating if results should be printed directly (FALSE) or exported to csv (TRUE).
-#' @param path A directory location to save the exported csv file.  Defaults to the working directory if left blank.
+#' @param export A logical indicating if results should be printed directly (FALSE) or exported to csv (TRUE).
+#' @param path A directory location to save the exported csv file.  Must be provided if export = TRUE.
 #' @return A list of possible elements
 #' \item{Prediction}{A vector of fitted probabilities for the given classification and observation(s).}
 #' \item{AllFeatures}{A numeric list of Features chosen at each node where the number represents the column number in the data.}
@@ -23,6 +23,12 @@
 #' \item{SoftObservationDataOutput.csv}{If export = TRUE, this csv file can be used with an Excel supplement to create visual displays of a single observation for a single response.}
 #' 
 #' @export
+#' 
+#' @examples 
+#' Responses = SoftClassMatrix(as.vector(iris$Species))
+#' SoftObservation(response = Responses[,1], responselabel = "setosa", train = iris[,1:4], 
+#' depth = 2, keep = TRUE, observation = 34, export = TRUE, path = tempdir())
+
 
 SoftObservation = function(response, responselabel = "No Variable Label", train, depth, keep = TRUE, observation, export = FALSE, path = NA)
 {
@@ -34,9 +40,10 @@ SoftObservation = function(response, responselabel = "No Variable Label", train,
   stopifnot(is.vector(observation))
   stopifnot(sum(export == TRUE, export == FALSE) == 1)
   stopifnot(sum(is.character(path) == TRUE, is.na(path) == TRUE) == 1)
+  if(export == TRUE & is.na(path) == TRUE) stop("Must provide a path in order to export weights.")
   
   ntry = ncol(train)
-  if(length(observation) == 1) testdata = as.matrix(t(train[observation,]))
+  if(length(observation) == 1) testdata = as.matrix(as.vector(train[observation,]))
   if(length(observation) != 1) testdata = as.matrix(train[observation,])
   ntrees = 1
   num.features = ntry
@@ -60,15 +67,14 @@ SoftObservation = function(response, responselabel = "No Variable Label", train,
         ObservationOutput$AllFeatures[i] = colnames(train)[as.numeric(ObservationOutput$AllFeatures[i])]
       }
     }
-    temp = unlist(lapply(FUN = as.data.frame, ObservationOutput))
-    output = cbind(temp$Prediction, temp$AllFeatures, temp$AllWeights)
+    #temp = unlist(lapply(FUN = as.data.frame, ObservationOutput))
+    output = cbind(ObservationOutput$Prediction, ObservationOutput$AllFeatures, ObservationOutput$AllWeights)
     names(output)[1] = "Prediction"
     OutputLength = length(output)
     output[OutputLength + 1] = observation
     names(output)[OutputLength + 1] = "Observation"
     output[OutputLength + 2] = responselabel
     names(output)[OutputLength + 2] = "Response"
-    if(is.na(path) == TRUE) path = getwd()
     file = paste(path, "/SoftObservationDataOutput.csv", sep = "")
     write.csv(t(output), file)
   }

@@ -20,9 +20,9 @@ SoftObservation(response, responselabel = "No Variable Label", train,
 
 \item{observation}{A numeric or vector containing observations of interest to keep the fitted prediction probability and weights.}
 
-\item{export}{A logicial indicating if results should be printed directly (FALSE) or exported to csv (TRUE).}
+\item{export}{A logical indicating if results should be printed directly (FALSE) or exported to csv (TRUE).}
 
-\item{path}{A directory location to save the exported csv file.  Defaults to the working directory if left blank.}
+\item{path}{A directory location to save the exported csv file.  Must be provided if export = TRUE.}
 }
 \value{
 A list of possible elements
@@ -40,4 +40,9 @@ in order to make inference from the Prediction Weights found.
 This can then be exported to any tree visual representation to see how the observation(s) of interest pass through the SDT
 This follows from the other user interface function SoftClassForest where the test set is the observation of interest
 instead of being used for testing misclassification.  Exporting these weights for visual representation is possible and recommended.
+}
+\examples{
+Responses = SoftClassMatrix(as.vector(iris$Species))
+SoftObservation(response = Responses[,1], responselabel = "setosa", train = iris[,1:4], 
+depth = 2, keep = TRUE, observation = 34, export = TRUE, path = tempdir())
 }

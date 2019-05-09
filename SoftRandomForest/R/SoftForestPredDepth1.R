@@ -19,7 +19,6 @@
 #' @importFrom boot inv.logit
 #' @importFrom stats glm
 #' @importFrom utils write.csv
-#' @export
 
 SoftForestPredDepth1 = function(trainresponse, train, test, num.features, ntry, keep = FALSE)
 {

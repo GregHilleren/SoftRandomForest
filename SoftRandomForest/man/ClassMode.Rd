@@ -2,21 +2,25 @@
 % Please edit documentation in R/ClassMode.R
 \name{ClassMode}
 \alias{ClassMode}
-\title{Determing the mode from a vector of numbers.}
+\title{Determining the mode from a vector of numbers.}
 \usage{
 ClassMode(classes)
 }
 \arguments{
-\item{classes}{A charactor vector of elements to find the mode.}
+\item{classes}{A character vector of elements to find the mode.}
 }
 \value{
 The mode found.
 }
 \description{
-\code{ClassMode} returns the most commonly occuring number from a vector of numbers.
+\code{ClassMode} returns the most commonly occurring number from a vector of numbers.
 }
 \details{
 \code{ClassMode} creates a frequency table based on a vector.  This table is then sorted by highest frequency
 and returns the top element.  Note, in the case of a tie, the first element is chosen as opposed to a random tiebreaker or returning 
 both elements.  For the sake of developing Random Forests of SDTs, this is a safer option.
+}
+\examples{
+Input = c("A", "C", "B", "B", "A", "B")
+ClassMode(Input)
 }

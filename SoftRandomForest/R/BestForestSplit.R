@@ -17,8 +17,6 @@
 #' \item{fit}{A \code{glm} object of the fit with the chosen variable.}
 #' \item{weights0}{A vector of the weights if response \code{0} was considered a success.  Calculated as \eqn{1 - weights1}.}
 #' \item{weights1}{A vector of the weights if response \code{1} was considered a success.}
-#' 
-#' @export
 
 BestForestSplit = function(response, data, num.features, ntry, weights = rep(1, nrow(data)))
 {

@@ -24,3 +24,7 @@ an individual classification.  The output matrix has number of rows equal to the
 equal to the number of unique entries in the input vector.  The order is determined by the order they appear in the vector.
 Adjust this afterwards if another order is desired.
 }
+\examples{
+Input = c("A", "C", "B", "B", "A", "B")
+SoftClassMatrix(Input, classes = c("A", "B", "C", "D"))
+}
